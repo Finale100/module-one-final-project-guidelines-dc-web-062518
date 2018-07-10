@@ -1,3 +1,6 @@
+Ingredient.destroy_all
+Recipe.destroy_all
+require 'pry'
 
 puts "Creating some recipes"
 
@@ -12,7 +15,7 @@ bulgogi = Recipe.create(name: "Beef Bulgogi", category: "Korean")
 bacon = Ingredient.create(name: "Bacon", cost: "$2")
 lettuce = Ingredient.create(name: "Lettuce", cost: "$1")
 tomato = Ingredient.create(name: "Tomato", cost: "$1.50")
-breed = Ingredient.create(name: "Bread", cost: "$2")
+bread = Ingredient.create(name: "Bread", cost: "$2")
 ac = Ingredient.create(name: "American Cheese", cost: "$2.30")
 butter = Ingredient.create(name: "Butter", cost: "$.75")
 flour = Ingredient.create(name: "Flour", cost: "$5")
@@ -21,4 +24,8 @@ eggs = Ingredient.create(name: "Eggs", cost: "$2")
 mc = Ingredient.create(name: "Mozzarella", cost: "$4")
 pepperonis = Ingredient.create(name: "Pepperoni's", cost: "$3")
 
-blt.ingredients << lettuce
+blt.ingredients.push(lettuce, tomato, bread, bacon)
+
+
+# binding.pry
+puts "end"
