@@ -2,9 +2,12 @@ require_relative '../config/environment'
 require 'pry'
 
 def prompt
+  puts "Welcome to your recipe library!"
   puts "What would you like to do?"
   puts "1. View all Recipes"
-  puts "2. Log into Account"
+  puts "2. Add Recipe"
+  puts "3. Modify Recipe"
+  puts "4. Remove Recipe"
 end
 
 def option_1
@@ -15,14 +18,20 @@ puts "Select a recipe!"
   end
 end
 
-def recipe_option
+def recipe_list
   input = gets.chomp
   if input == "1"
-    
+    blt = Recipe.all.first
+    blt.ingredients
+  end
+end
+
+
 
 puts "Welcome to Tastybook!"
 prompt
 option_1
+recipe_list
 
 
 # if input == "1"
