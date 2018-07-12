@@ -1,3 +1,4 @@
+require 'pry'
 class Recipe < ActiveRecord::Base
 
   has_many :recipe_ingredients
@@ -12,8 +13,13 @@ class Recipe < ActiveRecord::Base
     self.ingredients.each_with_index { |x, index| puts "#{index + 1}. #{x.name}"}
   end
 
-  def remove_recipe
-    binding.pry
-  end
+  # def remove_recipe
+  #   x = gets.chomp
+  #   rec_name = Recipe.all.each do |rec|
+  #     binding.pry
+  #     rec.name
+  #   end
+  #   puts "end"
+  # end
 
 end

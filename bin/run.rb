@@ -57,8 +57,9 @@ def option_1
     Ingredient.update_recipe
   when "4"
     puts ""
-    puts "Let's remove a recipe!"
-    
+    puts "Which recipe do you want to remove?"
+    puts ""
+    remove_recipe
   else
     puts ""
     puts "Please select a valid option!"
@@ -105,13 +106,37 @@ def add_ingredient
     end
 end
 
+def remove_recipe
+  Recipe.all.each_with_index { |x, index| puts "#{index + 1}. #{x.name}" }
+  puts ""
+  x = gets.chomp
+  Recipe.all.each do |rec|
+    if rec.name == x
+      Recipe.all.delete(rec)
+    end
+  end
+  puts ""
+  puts "Sorry, this recipe is not on the list."
+  puts "READ THE DIRECTIONS YOU IDIOT!"
+  puts ""
+  remove_recipe
+
+  puts ""
+  puts "#{x} is now outta here!!!"
+  puts ""
+  puts "Press any key to return to the menu."
+  gets.chomp
+  prompt
+  option_1
+end
+
 def return_to_main
   a = gets.chomp
   prompt
   option_1
 end
 
-
+# binding.pry
 puts ""
 puts "Welcome to Tastybook!"
 
