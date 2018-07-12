@@ -11,6 +11,7 @@ def prompt
   puts "2. Add Recipe"
   puts "3. Modify Recipe"
   puts "4. Remove Recipe"
+  puts ""
 end
 
 def option_1
@@ -18,23 +19,37 @@ def option_1
   case input
   when "1"
     puts ""
+    puts "----- All of your recipes -----"
     puts "Select a recipe by number!"
     puts ""
     Recipe.all.each_with_index { |x, index| puts "#{index + 1}. #{x.name}" }
+    puts ""
     recipe_ingredient_list
+    puts ""
   when "2"
     puts ""
     puts "What's the recipe name?"
     puts ""
       x = gets.chomp
+      puts ""
+      Recipe.all.find do |rec|
+          if x == rec.name
+          puts "You already have this recipe."
+          puts "Sending you back to the main menu..."
+          prompt
+          option_1
+        end
+      end
     puts ""
     puts "Type of cuisine?"
     puts ""
       y = gets.chomp
+      puts ""
       puts "New Recipe: #{x}"
       puts ""
-      Recipe.create(name: x, category: y)
+      Recipe.create(name: x, category: y) #making the recipes here
       puts "What are the ingredients? Please enter one at a time."
+      puts ""
       add_ingredient
   when "3"
     puts ""
@@ -43,6 +58,7 @@ def option_1
   when "4"
     puts ""
     puts "Let's remove a recipe!"
+    
   else
     puts ""
     puts "Please select a valid option!"
@@ -51,9 +67,17 @@ end
 
 def recipe_ingredient_list
   x = gets.chomp
-  puts "Ingredients List"
+  puts ""
+  puts "----- Ingredients List -----"
+  puts ""
+  puts "Recipe: #{Recipe.find(x).name}"
   puts ""
     puts Recipe.find(x).ingredients_by_name
+  puts ""
+  puts "Press any key to return to Recipes."
+  gets.chomp
+  prompt
+  option_1
   end
 
 def add_ingredient
@@ -66,12 +90,15 @@ def add_ingredient
       Recipe.last.ingredients.push(new_ing)
     end
   end
+  puts ""
   puts "Are there anymore ingredients? (y/n)"
+  puts ""
     b = gets.chomp
     if b == "y"
       add_ingredient
     elsif b == "n"
       puts "Yay, you've created a new recipe!"
+      puts ""
       puts "Press any key to return to main menu"
       gets.chomp
       return_to_main
@@ -83,27 +110,6 @@ def return_to_main
   prompt
   option_1
 end
-
-# def update_recipe
-#   puts "Which recipe do you want to edit?"
-#   puts ""
-#   Recipe.all.each_with_index { |x, index| puts "#{index + 1}. #{x.name}" }
-#   x = gets.chomp
-#   puts "Which item would you like to edit?"
-#   puts ""
-#     var = Recipe.find(x).ingredients_by_index
-#     y = gets.chomp
-#     puts ""
-#     puts "What do you want to change it to?"
-#     var.find do |ing|
-#       if y.downcase == ing.name.downcase
-#         # binding.pry
-#         new_ing = "#{gets.chomp}"
-#         ing.name.replace(new_ing)
-#       end
-#     end
-#
-# end
 
 
 puts ""

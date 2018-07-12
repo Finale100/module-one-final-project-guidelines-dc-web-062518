@@ -12,5 +12,8 @@ class Recipe < ActiveRecord::Base
     self.ingredients.each_with_index { |x, index| puts "#{index + 1}. #{x.name}"}
   end
 
-  
+  def remove_recipe
+    binding.pry
+  end
+
 end
