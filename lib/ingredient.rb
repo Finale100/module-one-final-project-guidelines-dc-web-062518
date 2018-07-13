@@ -14,49 +14,56 @@ class Ingredient < ActiveRecord::Base
       input = gets.chomp
       if input == "add"
         puts "What ingredient would you like to add?"
+        puts ""
         new_add = gets.chomp #Adding a new ingredient
         Ingredient.all.find do |ingredient|
           if new_add.downcase == ingredient.name.downcase
             Recipe.find(x) << ingredient
-          elsif
+          else
         add_ing = Ingredient.create(name: new_add)
-        binding.pry
         Recipe.find(x).ingredients << add_ing
+        puts ""
+        puts "Success!"
+        puts "Press any key to return to main menu"
+        gets.chomp
+        prompt
+        option_1
           end
         end
       elsif input == "drop"
         puts "Which ingredient would you like to drop? Please enter the name of the item"
+        puts ""
         var = Recipe.find(x).ingredients_by_index
+        puts ""
         drop_item = gets.chomp
         var.each do |ing_item|
-          # binding.pry
           if drop_item.downcase == ing_item.name.downcase
             Recipe.find(x).ingredients -= [ing_item]
+            puts "Success!"
+            puts ""
+            puts "Press any key to return to Recipes."
+            gets.chomp
+            prompt
+            option_1
           end
         end
-        binding.pry
       else
-        puts "Invalid Entry"
-      end
-      y = gets.chomp #selecting which ingredient to add or drop
-      puts ""
-      puts "What do you want to change it to?"
-      z = gets.chomp #new ingredient name
-      # binding.pry
-      var.find(y)
-      var.update(name: z)
-#       var.find do |ing|
-        # if y.downcase == ing.name.downcase
-#           # binding.pry
-#           # new_ing = "#{gets.chomp}"
-#           # self.update(name: new_ing)
-#           # binding.pry
-#           # puts "end"
-#
-# # user = User.find_by(name: 'David')
-# # user.update(name: 'Dave')
-#
-#         end
-      # end
+      puts "Invalid Entry"
+    end
   end
 end
+
+def add_ingredient_to_existing_recipe
+  puts "Are there anymore ingredients? (y/n)"
+  puts ""
+    b = gets.chomp
+    if b == "y"
+      add_ingredient
+    elsif b == "n"
+      puts "Yay, you've created a new recipe!"
+      puts ""
+      puts "Press any key to return to main menu"
+      gets.chomp
+      return_to_main
+    end
+  end

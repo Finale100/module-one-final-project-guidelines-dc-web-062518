@@ -11,6 +11,7 @@ def prompt
   puts "2. Add Recipe"
   puts "3. Modify Recipe"
   puts "4. Remove Recipe"
+  puts "5. Exit"
   puts ""
 end
 
@@ -24,7 +25,7 @@ def option_1
     puts ""
     Recipe.all.each_with_index { |x, index| puts "#{index + 1}. #{x.name}" }
     puts ""
-    recipe_ingredient_list
+    Recipe.recipe_ingredient_list
     puts ""
   when "2"
     puts ""
@@ -60,26 +61,15 @@ def option_1
     puts "Which recipe do you want to remove?"
     puts ""
     remove_recipe
+  when "5"
+    puts "*********** GOODBYE **********"
   else
     puts ""
-    puts "Please select a valid option!"
+    puts "Please select a valid option!?"
+    option_1
   end
 end
 
-def recipe_ingredient_list
-  x = gets.chomp
-  puts ""
-  puts "----- Ingredients List -----"
-  puts ""
-  puts "Recipe: #{Recipe.find(x).name}"
-  puts ""
-    puts Recipe.find(x).ingredients_by_name
-  puts ""
-  puts "Press any key to return to Recipes."
-  gets.chomp
-  prompt
-  option_1
-  end
 
 def add_ingredient
   ing = gets.chomp
@@ -104,23 +94,17 @@ def add_ingredient
       gets.chomp
       return_to_main
     end
-end
+  end
+
 
 def remove_recipe
   Recipe.all.each_with_index { |x, index| puts "#{index + 1}. #{x.name}" }
-  puts ""
   x = gets.chomp
   Recipe.all.each do |rec|
     if rec.name == x
       Recipe.all.delete(rec)
     end
   end
-  puts ""
-  puts "Sorry, this recipe is not on the list."
-  puts "READ THE DIRECTIONS YOU IDIOT!"
-  puts ""
-  remove_recipe
-
   puts ""
   puts "#{x} is now outta here!!!"
   puts ""
